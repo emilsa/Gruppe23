@@ -36,8 +36,12 @@ public class Doorman extends Thread {
 
 	public void run(){
 		while(threadRunning){
+			Customer customer = new Customer();
+			queue.addCustomer(customer);
 			try {
-
+				sleep((long) (Math.random() * (Globals.doormanSleep)));
+			}catch(InterruptException e){
+				e.printStackTrace();
 			}
 		}
 	}

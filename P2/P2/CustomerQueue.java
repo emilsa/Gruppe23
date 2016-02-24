@@ -3,6 +3,7 @@
  */
 public class CustomerQueue {
 	public Customer[] customerList;
+	private int waitingQueue;
 	private int maxLength;
 	/*customer = new Customer;
 	List<customer> queue = new ArrayList<customer>();*/
@@ -19,7 +20,7 @@ public class CustomerQueue {
 		//costumer = new Customer[queueLength];
 		this.queueLength = queueLength;
 		this.gui = gui;
-		//customerQueue.length = 0;
+		customerList = New Customer[maxLength];
 
 		maxLength = queueLength;
 		//gui.fillLoungeChair( int pos, customer);
@@ -41,18 +42,33 @@ public class CustomerQueue {
 		return false;
 	}
 
-	public synchronized void addCustomer (customerList customerList, customer customer){
-		if(!queue.checkFull){
-			Customer customer = new customer();
-			customerList.add(customer);
-			gui.println("La til en kunde lol");
-
-		}
-		else{
+	public synchronized void addCustomer (Customer customer){
+		while(queue.checkFull()) {
+			//Sjekker om venterommet er fullt
 			gui.println("Det er fullt");
+			try {
+				//Venter på ledig plass
+				wait();
+			} catch (interruptedException e) {
+				gui.println("Ledig plass!")
+			}
 		}
+		for(int i = 0; i < customerList.length; i++){
+			if (customerList[i] == null){
+				customerList[i] = customer;
+				gui.fillLoungeChair(i, customer);
 
+				break;
+			}
+		}
+		//Inkrementere ventekøen
+		waitingQueue++;
+		if(waitingQueue == 1){
+			notifyAll();
+		}
+		gui.println("La til en kunde lol");
 	}
+
 
 
 

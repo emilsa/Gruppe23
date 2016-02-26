@@ -2,11 +2,12 @@
  * This class implements a queue of customers as a circular buffer.
  */
 public class CustomerQueue {
-	public Customer[] customerList;
-	private int waitingQueue;
-	private int maxLength;
-	/*customer = new Customer;
-	List<customer> queue = new ArrayList<customer>();*/
+	Customer[] customerList;
+	int waitingQueue;
+	int maxLength;
+	int queueLength;
+	Gui gui;
+	//List<customer> queue = new ArrayList<customer>();
 
 	/*GUI ref*/
 
@@ -20,67 +21,101 @@ public class CustomerQueue {
 		//costumer = new Customer[queueLength];
 		this.queueLength = queueLength;
 		this.gui = gui;
-		customerList = New Customer[maxLength];
-
 		maxLength = queueLength;
+		customerList = new Customer[maxLength];
+
+
 		//gui.fillLoungeChair( int pos, customer);
 	}
 
-	public boolean checkEmpty(customerList customerList)
+	public boolean checkEmpty() {
+		for (int i = 0; i < customerList.length; i++) {
+			if (customerList[i] != null) {
+				return false;
+			}
 
-	{
-		if (customerList.size = 0) {
-			return true;
+
 		}
-		return false;
+		return true;
 	}
 
-	public boolean checkFull(customerList customerList){
-		if (customerList.size = queueLength) {
-			return true;
+	public boolean checkFull() {
+		for (int i = 0; i < customerList.length; i++) {
+			if (customerList[i] == null) {
+				return false;
+			}
+
+
+
 		}
-		return false;
+		return true;
 	}
 
-	public synchronized void addCustomer (Customer customer){
-		while(queue.checkFull()) {
+	public synchronized void addCustomer(Customer customer) {
+		while (checkFull()) {
 			//Sjekker om venterommet er fullt
 			gui.println("Det er fullt");
 			try {
 				//Venter på ledig plass
 				wait();
-			} catch (interruptedException e) {
-				gui.println("Ledig plass!")
+			} catch (InterruptedException e) {
+				gui.println("Ledig plass!");
 			}
 		}
-		for(int i = 0; i < customerList.length; i++){
-			if (customerList[i] == null){
+		for (int i = 0; i < customerList.length; i++) {
+			if (customerList[i] == null) {
 				customerList[i] = customer;
 				gui.fillLoungeChair(i, customer);
 
 				break;
 			}
 		}
-		//Inkrementere ventekøen
+		//Inkrementerer ventekøen
 		waitingQueue++;
-		if(waitingQueue == 1){
+		if (waitingQueue == 1) {
 			notifyAll();
 		}
 		gui.println("La til en kunde lol");
 	}
 
-
-
-
-
-
-		/*for(i=0,i<queue.length, i++){
-			if(q[i]!=null)
-				return false;
+	public synchronized Customer removeCustomer() {
+		while (checkEmpty()) {
+			gui.println("frisør venter på nye gjester");
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				gui.println("Frisør har fått gjest #blabla");
+			}
 		}
-		return true;
-	}*/
+		int seatNr = 0;
+		int waitedLongest = 0;
+		for (int i = 0; i < customerList.length; i++) {
+			if (customerList[i] != null) {
+				if (waitedLongest == 0) {
+					waitedLongest = customerList[i].getCustomerID();
+					seatNr = i;
+				}
+				if (customerList[i].getCustomerID() < waitedLongest) {
+					waitedLongest = customerList[i].getCustomerID();
+					seatNr = i;
+				}
+			}
+			gui.println("Kunde hentet fra lounge");
+			gui.emptyLoungeChair(seatNr);
 
-	// Add more methods as needed
+			waitingQueue--;
+
+			if (waitingQueue == customerList.length - 1) {
+				notifyAll();
+
+
+			}
+
+		}
+		Customer customer = customerList[seatNr];
+		customerList[seatNr] = null;
+		return customer;
+	}
+
 }
 

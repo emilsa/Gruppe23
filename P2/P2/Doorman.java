@@ -1,16 +1,21 @@
+//import com.sun.javaws.Globals;
+
 /**
  * This class implements the doorman's part of the
  * Barbershop thread synchronization example.
  */
 public class Doorman extends Thread {
 
-	private boolean threadRunning;
-	private CustomerQueue queue;
-	private Gui gui;
-	private Customer customer;
+	boolean threadRunning;
+	CustomerQueue queue;
+	Gui gui;
+	Customer customer;
+	//private CustomerList customerList;
+
 	/**
 	 * Creates a new doorman.
 	 * @param queue		The customer queue.
+
 	 * @param gui		A reference to the GUI interface.
 	 */
 	public Doorman(CustomerQueue queue, Gui gui) {
@@ -36,13 +41,12 @@ public class Doorman extends Thread {
 
 	public void run(){
 		while(threadRunning){
-			Customer customer = new Customer();
-			queue.addCustomer(customer);
 			try {
 				sleep((long) (Math.random() * (Globals.doormanSleep)));
-			}catch(InterruptException e){
-				e.printStackTrace();
+			}catch(InterruptedException b){
+				b.printStackTrace();
 			}
+			queue.addCustomer(new Customer());
 		}
 	}
 }

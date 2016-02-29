@@ -1,10 +1,9 @@
-//import com.sun.javaws.Globals;
-
 /**
  * This class implements the doorman's part of the
  * Barbershop thread synchronization example.
  */
-public class Doorman extends Thread {
+public class Doorman extends Thread
+{
 
 	boolean threadRunning;
 	CustomerQueue queue;

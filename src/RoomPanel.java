@@ -1,5 +1,5 @@
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Component used by the GUI to display the Barbershop salon.

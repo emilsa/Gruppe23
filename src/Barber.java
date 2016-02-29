@@ -1,10 +1,9 @@
-//import com.sun.javaws.Globals;
-
 /**
  * This class implements the barber's part of the
  * Barbershop thread synchronization example.
  */
-public class Barber extends Thread{
+public class Barber extends Thread
+{
 	CustomerQueue queue;
 	Gui gui;
 	int pos;

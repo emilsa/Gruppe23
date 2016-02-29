@@ -1,14 +1,17 @@
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * This class displays a GUI for the Barbershop example, and also contains the
  * startup method. It implements the Gui interface containing methods publicly
  * available to be used by the Doorman, Barber and CustomerQueue classes.
  */
-public class BarbershopGui extends JFrame implements Constants, Gui, ChangeListener {
+public class BarbershopGui extends JFrame implements Constants, Gui, ChangeListener
+{
 	/** Various images used by the GUI */
 	public static Image tableImage;
 	public static Image deskImage;

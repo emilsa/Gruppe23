@@ -1,5 +1,4 @@
 import java.awt.*;
-import javax.swing.*;
 
 /**
  * This class implements a customer's part of the Barbershop example.

@@ -109,7 +109,7 @@ public class BarbershopGui extends JFrame implements Constants, Gui, ChangeListe
 		barberImage = loadImage(tk, "images/barber.gif", tracker);
 		customerImages = new Image[NOF_CUSTOMER_LOOKS];
 		for(int i = 0; i < NOF_CUSTOMER_LOOKS; i++) {
-			customerImages[i] = loadImage(tk, "images/customer"+i+".gif", tracker);
+			customerImages[i] = loadImage(tk, "images/customer" +i+".gif", tracker);
 		}
 		tableImage = loadImage(tk, "images/table.gif", tracker);
 		deskImage = loadImage(tk, "images/desk.gif", tracker);

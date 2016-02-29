@@ -41,7 +41,7 @@ public class Doorman extends Thread
 	public void run(){
 		while(threadRunning){
 			try {
-				sleep((long) (Math.random() * (Globals.doormanSleep)));
+				sleep((long) (Math.random()* 1 * (Globals.doormanSleep)));
 			}catch(InterruptedException b){
 				b.printStackTrace();
 			}

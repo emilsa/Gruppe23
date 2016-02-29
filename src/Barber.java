@@ -8,7 +8,7 @@ public class Barber extends Thread
 	Gui gui;
 	int pos;
 	boolean threadRunning;
-	Customer customer;
+
 
 
 
@@ -45,19 +45,21 @@ public class Barber extends Thread
 		while (threadRunning) {
 			try {
 				gui.barberIsSleeping(pos);
-				sleep((long) (Math.random() * (Globals.barberSleep)));
+				sleep((long) (Math.random() * 2 * (Globals.barberSleep)));
 				gui.barberIsAwake(pos);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 
 			}
-			gui.fillBarberChair(pos, customer);
+			queue.removeCustomer();
 			try {
-				sleep((long) (Math.random() * (Globals.barberWork)));
+				gui.fillBarberChair(pos,new  Customer());
+				sleep((long) (Math.random()* 2 * (Globals.barberWork)));
 			} catch (InterruptedException a) {
 				a.printStackTrace();
 			}
 			gui.emptyBarberChair(pos);
+
 		}
 	}
 }

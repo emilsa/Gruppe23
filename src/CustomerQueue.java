@@ -7,6 +7,7 @@ public class CustomerQueue {
 	int maxLength;
 	int queueLength;
 	Gui gui;
+	Customer customer;
 	//List<customer> queue = new ArrayList<customer>();
 
 	/*GUI ref*/
@@ -100,18 +101,19 @@ public class CustomerQueue {
 					seatNr = i;
 				}
 			}
-			gui.println("Kunde hentet fra lounge");
-			gui.emptyLoungeChair(seatNr);
+		}
+		gui.println("Kunde hentet fra lounge");
+		gui.emptyLoungeChair(seatNr);
 
-			waitingQueue--;
+		waitingQueue--;
 
-			if (waitingQueue == customerList.length - 1) {
-				notifyAll();
+		if (waitingQueue == customerList.length - 1) {
+			notifyAll();
 
-
-			}
 
 		}
+
+
 		Customer customer = customerList[seatNr];
 		customerList[seatNr] = null;
 		return customer;
